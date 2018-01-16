@@ -1,0 +1,109 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<title>HOME PAGE</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+
+
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class=" dashboard"
+  data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+            <h1>HOME PAGE</h1>>
+
+        </div>
+        
+<div id="user-tools">
+
+        {% if user.is_authenticated %}
+            
+                Welcome,
+                <strong>{{user.username}}</strong>
+                
+                <a href="{% url 'accounts:logout' %}">Log out</a>
+
+        {% else %}
+
+                <a href="{% url 'accounts:login' %}">Log in</a>
+                <a href="{% url 'accounts:signup' %}">Sign up</a>
+
+        {% endif %}
+            
+        </div>
+
+
+
+        
+        
+    </div>
+    <!-- END Header -->
+    
+    
+
+    
+        
+    
+
+    <!-- Content -->
+    <div id="content" class="colMS">
+        
+        <h1>TRENDING POSTS</h1>
+        
+<div id="content-main">
+
+{% for post in posts.all %}
+
+        <div class="app-auth module">
+        <caption>
+            <a href='{{ post.url }}'>{{ post.title }}</a>
+        </caption>
+        <h5>
+        Votes: {{post.vote_count}} 
+        <br>
+        {{post.pub_date}} by {{post.author.username}}      
+		<br>
+		<a href = "{% url 'posts:upvote' post.id %}">Upvote</a>
+		<a href = "{% url 'posts:downvote' post.id %}">Downvote</a>
+		</h5>
+        </div>
+    
+{% endfor %}
+
+
+
+
+</div>
+
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2><a href="{% url 'posts:create' %}"><center>POST YOUR OWN LINK</center></a></h2>          
+    </div>
+</div>
+
+        
+
+    <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>
